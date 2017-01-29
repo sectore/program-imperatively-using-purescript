@@ -6,7 +6,8 @@ import Control.Monad.Eff (Eff)
 import Control.Monad.Eff.Console (CONSOLE, log, logShow)
 import Control.Monad.State (execState)
 import Data.Lens (view)
-import Game (fireBreath, initialState, setScore, strike, strike', updateScore)
+import Game (fireBreath, fireBreath', initialState, setScore, strike, strike', updateScore)
+import Game.Data (GamePoint(..))
 
 main :: forall e. Eff (console :: CONSOLE | e) Unit
 main = do
@@ -27,6 +28,9 @@ main = do
   logDelimiter
   log "fireBreath "
   logShow $ execState fireBreath initialState
+  logDelimiter
+  log "fireBreath' "
+  logShow $ execState (fireBreath' $ GamePoint {x: 0.5, y:1.5} ) initialState
   logDelimiter
 
 logDelimiter :: forall e. Eff (console :: CONSOLE | e) Unit
