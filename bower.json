@@ -11,7 +11,8 @@
     "purescript-console": "^2.0.0",
     "purescript-transformers": "^2.2.0",
     "purescript-generics-rep": "^4.1.0",
-    "purescript-profunctor-lenses": "^2.6.0"
+    "purescript-profunctor-lenses": "^2.6.0",
+    "purescript-math": "^2.0.0"
   },
   "devDependencies": {
     "purescript-psci-support": "^2.0.0"
