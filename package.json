@@ -1,0 +1,30 @@
+{
+  "name": "program-imperatively-using-purescript",
+  "version": "1.0.0",
+  "description": "> I guess people really aren't joking when they say Haskell is the finest imperative language.",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "start": "pulp run",
+    "watch": "pulp --watch run",
+    "postinstall": "bower cache clean && bower install",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sectore/program-imperatively-using-purescript.git"
+  },
+  "author": "Jens Krause",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sectore/program-imperatively-using-purescript/issues"
+  },
+  "homepage": "https://github.com/sectore/program-imperatively-using-purescript#readme",
+  "devDependencies": {
+    "bower": "^1.8.0",
+    "pulp": "^10.0.0",
+    "purescript": "^0.10.5"
+  }
+}

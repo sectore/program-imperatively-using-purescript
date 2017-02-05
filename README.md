@@ -1,18 +1,99 @@
+# Program imperatively with PureScript using `State` and `Lenses`
 
-_... still work in progress ..._
+> I guess people really aren't joking when they say Haskell is the finest imperative language.
 
-# Program imperatively using PureScript (originally written in Haskell)
+_Quote by Gabriel Gonzalez at his famous blog post ["Program imperatively using Haskell lenses"](http://www.haskellforall.com/2013/05/program-imperatively-using-haskell.html)_
 
-[PureScript](http://www.purescript.org/) port of [`Program imperatively using Haskell lenses`](http://www.haskellforall.com/2013/05/program-imperatively-using-haskell.html) by [@Gabriel439](https://github.com/Gabriel439) using [`purescript-profunctor-lenses`](https://github.com/purescript-contrib/purescript-profunctor-lenses/).
+:space_invader: :space_invader: :space_invader: **Let's have with PureScript an another _finest_ imperative language, too!** :space_invader: :space_invader: :space_invader:
 
-## Run examples
+That's why you will find here all code of [`Program imperatively using Haskell lenses`](http://www.haskellforall.com/2013/05/program-imperatively-using-haskell.html) (originally written in Haskell by [@Gabriel439](https://github.com/Gabriel439)) ported to  [PureScript](http://www.purescript.org/).
 
+The fun part with `lenses` are supported by  [`purescript-profunctor-lenses`](https://github.com/purescript-contrib/purescript-profunctor-lenses/) and [`purescript-derive-lenses`](https://github.com/paf31/purescript-derive-lenses).
+
+Have fun :sunglasses:
+
+
+## Run
 
 ```bash
 npm install
-pulp run
+npm start
 ```
 
+## Output
+
+```bash
+~~~~~~~~~~~~~~~~~~
+Getter / Setter
+~~~~~~~~~~~~~~~~~~
+
+# get score
+0
+
+# set score
+(Game { boss: (GameUnit { health: 100, position: (GamePoint { x: 0.0, y: 0.0 }) }), score: 10000, units: [(GameUnit { health: 10, position: (GamePoint { x: 3.5, y: 7.0 }) }),(GameUnit { health: 15, position: (GamePoint { x: 1.0, y: 1.0 }) }),(GameUnit { health: 8, position: (GamePoint { x: 0.0, y: 2.1 }) })] })
+
+# update score
+(Game { boss: (GameUnit { health: 100, position: (GamePoint { x: 0.0, y: 0.0 }) }), score: 222, units: [(GameUnit { health: 10, position: (GamePoint { x: 3.5, y: 7.0 }) }),(GameUnit { health: 15, position: (GamePoint { x: 1.0, y: 1.0 }) }),(GameUnit { health: 8, position: (GamePoint { x: 0.0, y: 2.1 }) })] })
+
+~~~~~~~~~~~~~~~~~~
+Composition
+~~~~~~~~~~~~~~~~~~
+
+# strike
+*shink*
+(Game { boss: (GameUnit { health: 133, position: (GamePoint { x: 0.0, y: 0.0 }) }), score: 0, units: [(GameUnit { health: 10, position: (GamePoint { x: 3.5, y: 7.0 }) }),(GameUnit { health: 15, position: (GamePoint { x: 1.0, y: 1.0 }) }),(GameUnit { health: 8, position: (GamePoint { x: 0.0, y: 2.1 }) })] })
+
+# strike'
+*shink*
+(Game { boss: (GameUnit { health: 133, position: (GamePoint { x: 0.0, y: 0.0 }) }), score: 0, units: [(GameUnit { health: 10, position: (GamePoint { x: 3.5, y: 7.0 }) }),(GameUnit { health: 15, position: (GamePoint { x: 1.0, y: 1.0 }) }),(GameUnit { health: 8, position: (GamePoint { x: 0.0, y: 2.1 }) })] })
+
+~~~~~~~~~~~~~~~~~~
+Traversal
+~~~~~~~~~~~~~~~~~~
+
+# fireBreath
+*srawr*
+(Game { boss: (GameUnit { health: 100, position: (GamePoint { x: 0.0, y: 0.0 }) }), score: 0, units: [(GameUnit { health: 7, position: (GamePoint { x: 3.5, y: 7.0 }) }),(GameUnit { health: 12, position: (GamePoint { x: 1.0, y: 1.0 }) }),(GameUnit { health: 5, position: (GamePoint { x: 0.0, y: 2.1 }) })] })
+
+# fireBreath'
+*srawr*
+(Game { boss: (GameUnit { health: 100, position: (GamePoint { x: 0.0, y: 0.0 }) }), score: 0, units: [(GameUnit { health: 10, position: (GamePoint { x: 3.5, y: 7.0 }) }),(GameUnit { health: 12, position: (GamePoint { x: 1.0, y: 1.0 }) }),(GameUnit { health: 5, position: (GamePoint { x: 0.0, y: 2.1 }) })] })
+
+~~~~~~~~~~~~~~~~~~
+Zooming
+~~~~~~~~~~~~~~~~~~
+
+# partyLoc
+((GamePoint { x: 3.5, y: 7.0 }) : (GamePoint { x: 1.0, y: 1.0 }) : (GamePoint { x: 0.0, y: 2.1 }) : Nil)
+
+# retreat
+Retreat!
+(Game { boss: (GameUnit { health: 100, position: (GamePoint { x: 0.0, y: 0.0 }) }), score: 0, units: [(GameUnit { health: 10, position: (GamePoint { x: 3.5, y: 17.0 }) }),(GameUnit { health: 15, position: (GamePoint { x: 1.0, y: 11.0 }) }),(GameUnit { health: 8, position: (GamePoint { x: 0.0, y: 12.1 }) })] })
+
+# retreat newstate
+Retreat!
+((GamePoint { x: 3.5, y: 17.0 }) : (GamePoint { x: 1.0, y: 11.0 }) : (GamePoint { x: 0.0, y: 12.1 }) : Nil)
+Retreat!
+((GamePoint { x: 3.5, y: 17.0 }) : (GamePoint { x: 1.0, y: 11.0 }) : (GamePoint { x: 0.0, y: 12.1 }) : Nil)
+
+~~~~~~~~~~~~~~~~~~
+Combining
+~~~~~~~~~~~~~~~~~~
+
+# battle
+Take that!
+*shink*
+and that!
+*shink*
+and that!
+*shink*
+*srawr*
+Retreat!
+Retreat!
+Retreat!
+(Game { boss: (GameUnit { health: 199, position: (GamePoint { x: 0.0, y: 0.0 }) }), score: 0, units: [(GameUnit { health: 10, position: (GamePoint { x: 3.5, y: 67.0 }) }),(GameUnit { health: 12, position: (GamePoint { x: 1.0, y: 61.0 }) }),(GameUnit { health: 5, position: (GamePoint { x: 0.0, y: 62.1 }) })] })
+```
 ## Generating lenses
 
 _Note:_ To run example you don't need to generate lenses again. They are already [there](./src/Lenses.purs).
