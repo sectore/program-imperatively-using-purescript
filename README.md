@@ -24,76 +24,76 @@ npm start
 
 ```bash
 
-~~~~~~~~~~~~~~~~~~
-Getter / Setter
-~~~~~~~~~~~~~~~~~~
+  ~~~~~~~~~~~~~~~~~~
+  Getter / Setter
+  ~~~~~~~~~~~~~~~~~~
 
-# get score
-0
+  # get score
+  0
 
-# set score
-(Game { boss: (GameUnit { health: 100, position: (GamePoint { x: 0.0, y: 0.0 }) }), score: 10000, units: [(GameUnit { health: 10, position: (GamePoint { x: 3.5, y: 7.0 }) }),(GameUnit { health: 15, position: (GamePoint { x: 1.0, y: 1.0 }) }),(GameUnit { health: 8, position: (GamePoint { x: 0.0, y: 2.1 }) })] })
+  # set score
+  (Game { boss: (GameUnit { health: 100, position: (GamePoint { x: 0.0, y: 0.0 }) }), score: 10000, units: [(GameUnit { health: 10, position: (GamePoint { x: 3.5, y: 7.0 }) }),(GameUnit { health: 15, position: (GamePoint { x: 1.0, y: 1.0 }) }),(GameUnit { health: 8, position: (GamePoint { x: 0.0, y: 2.1 }) })] })
 
-# update score
-(Game { boss: (GameUnit { health: 100, position: (GamePoint { x: 0.0, y: 0.0 }) }), score: 222, units: [(GameUnit { health: 10, position: (GamePoint { x: 3.5, y: 7.0 }) }),(GameUnit { health: 15, position: (GamePoint { x: 1.0, y: 1.0 }) }),(GameUnit { health: 8, position: (GamePoint { x: 0.0, y: 2.1 }) })] })
+  # update score
+  (Game { boss: (GameUnit { health: 100, position: (GamePoint { x: 0.0, y: 0.0 }) }), score: 222, units: [(GameUnit { health: 10, position: (GamePoint { x: 3.5, y: 7.0 }) }),(GameUnit { health: 15, position: (GamePoint { x: 1.0, y: 1.0 }) }),(GameUnit { health: 8, position: (GamePoint { x: 0.0, y: 2.1 }) })] })
 
-~~~~~~~~~~~~~~~~~~
-Composition
-~~~~~~~~~~~~~~~~~~
+  ~~~~~~~~~~~~~~~~~~
+  Composition
+  ~~~~~~~~~~~~~~~~~~
 
-# strike
-*shink*
-(Game { boss: (GameUnit { health: 133, position: (GamePoint { x: 0.0, y: 0.0 }) }), score: 0, units: [(GameUnit { health: 10, position: (GamePoint { x: 3.5, y: 7.0 }) }),(GameUnit { health: 15, position: (GamePoint { x: 1.0, y: 1.0 }) }),(GameUnit { health: 8, position: (GamePoint { x: 0.0, y: 2.1 }) })] })
+  # strike
+  *shink*
+  (Game { boss: (GameUnit { health: 133, position: (GamePoint { x: 0.0, y: 0.0 }) }), score: 0, units: [(GameUnit { health: 10, position: (GamePoint { x: 3.5, y: 7.0 }) }),(GameUnit { health: 15, position: (GamePoint { x: 1.0, y: 1.0 }) }),(GameUnit { health: 8, position: (GamePoint { x: 0.0, y: 2.1 }) })] })
 
-# strike'
-*shink*
-(Game { boss: (GameUnit { health: 133, position: (GamePoint { x: 0.0, y: 0.0 }) }), score: 0, units: [(GameUnit { health: 10, position: (GamePoint { x: 3.5, y: 7.0 }) }),(GameUnit { health: 15, position: (GamePoint { x: 1.0, y: 1.0 }) }),(GameUnit { health: 8, position: (GamePoint { x: 0.0, y: 2.1 }) })] })
+  # strike'
+  *shink*
+  (Game { boss: (GameUnit { health: 133, position: (GamePoint { x: 0.0, y: 0.0 }) }), score: 0, units: [(GameUnit { health: 10, position: (GamePoint { x: 3.5, y: 7.0 }) }),(GameUnit { health: 15, position: (GamePoint { x: 1.0, y: 1.0 }) }),(GameUnit { health: 8, position: (GamePoint { x: 0.0, y: 2.1 }) })] })
 
-~~~~~~~~~~~~~~~~~~
-Traversal
-~~~~~~~~~~~~~~~~~~
+  ~~~~~~~~~~~~~~~~~~
+  Traversal
+  ~~~~~~~~~~~~~~~~~~
 
-# fireBreath
-*srawr*
-(Game { boss: (GameUnit { health: 100, position: (GamePoint { x: 0.0, y: 0.0 }) }), score: 0, units: [(GameUnit { health: 7, position: (GamePoint { x: 3.5, y: 7.0 }) }),(GameUnit { health: 12, position: (GamePoint { x: 1.0, y: 1.0 }) }),(GameUnit { health: 5, position: (GamePoint { x: 0.0, y: 2.1 }) })] })
+  # fireBreath
+  *srawr*
+  (Game { boss: (GameUnit { health: 100, position: (GamePoint { x: 0.0, y: 0.0 }) }), score: 0, units: [(GameUnit { health: 7, position: (GamePoint { x: 3.5, y: 7.0 }) }),(GameUnit { health: 12, position: (GamePoint { x: 1.0, y: 1.0 }) }),(GameUnit { health: 5, position: (GamePoint { x: 0.0, y: 2.1 }) })] })
 
-# fireBreath'
-*srawr*
-(Game { boss: (GameUnit { health: 100, position: (GamePoint { x: 0.0, y: 0.0 }) }), score: 0, units: [(GameUnit { health: 10, position: (GamePoint { x: 3.5, y: 7.0 }) }),(GameUnit { health: 12, position: (GamePoint { x: 1.0, y: 1.0 }) }),(GameUnit { health: 5, position: (GamePoint { x: 0.0, y: 2.1 }) })] })
+  # fireBreath'
+  *srawr*
+  (Game { boss: (GameUnit { health: 100, position: (GamePoint { x: 0.0, y: 0.0 }) }), score: 0, units: [(GameUnit { health: 10, position: (GamePoint { x: 3.5, y: 7.0 }) }),(GameUnit { health: 12, position: (GamePoint { x: 1.0, y: 1.0 }) }),(GameUnit { health: 5, position: (GamePoint { x: 0.0, y: 2.1 }) })] })
 
-~~~~~~~~~~~~~~~~~~
-Zooming
-~~~~~~~~~~~~~~~~~~
+  ~~~~~~~~~~~~~~~~~~
+  Zooming
+  ~~~~~~~~~~~~~~~~~~
 
-# partyLoc
-((GamePoint { x: 3.5, y: 7.0 }) : (GamePoint { x: 1.0, y: 1.0 }) : (GamePoint { x: 0.0, y: 2.1 }) : Nil)
+  # partyLoc
+  ((GamePoint { x: 3.5, y: 7.0 }) : (GamePoint { x: 1.0, y: 1.0 }) : (GamePoint { x: 0.0, y: 2.1 }) : Nil)
 
-# retreat
-Retreat!
-(Game { boss: (GameUnit { health: 100, position: (GamePoint { x: 0.0, y: 0.0 }) }), score: 0, units: [(GameUnit { health: 10, position: (GamePoint { x: 3.5, y: 17.0 }) }),(GameUnit { health: 15, position: (GamePoint { x: 1.0, y: 11.0 }) }),(GameUnit { health: 8, position: (GamePoint { x: 0.0, y: 12.1 }) })] })
+  # retreat
+  Retreat!
+  (Game { boss: (GameUnit { health: 100, position: (GamePoint { x: 0.0, y: 0.0 }) }), score: 0, units: [(GameUnit { health: 10, position: (GamePoint { x: 3.5, y: 17.0 }) }),(GameUnit { health: 15, position: (GamePoint { x: 1.0, y: 11.0 }) }),(GameUnit { health: 8, position: (GamePoint { x: 0.0, y: 12.1 }) })] })
 
-# retreat newstate
-Retreat!
-((GamePoint { x: 3.5, y: 17.0 }) : (GamePoint { x: 1.0, y: 11.0 }) : (GamePoint { x: 0.0, y: 12.1 }) : Nil)
-Retreat!
-((GamePoint { x: 3.5, y: 17.0 }) : (GamePoint { x: 1.0, y: 11.0 }) : (GamePoint { x: 0.0, y: 12.1 }) : Nil)
+  # retreat newstate
+  Retreat!
+  ((GamePoint { x: 3.5, y: 17.0 }) : (GamePoint { x: 1.0, y: 11.0 }) : (GamePoint { x: 0.0, y: 12.1 }) : Nil)
+  Retreat!
+  ((GamePoint { x: 3.5, y: 17.0 }) : (GamePoint { x: 1.0, y: 11.0 }) : (GamePoint { x: 0.0, y: 12.1 }) : Nil)
 
-~~~~~~~~~~~~~~~~~~
-Combining
-~~~~~~~~~~~~~~~~~~
+  ~~~~~~~~~~~~~~~~~~
+  Combining
+  ~~~~~~~~~~~~~~~~~~
 
-# battle
-Take that!
-*shink*
-and that!
-*shink*
-and that!
-*shink*
-*srawr*
-Retreat!
-Retreat!
-Retreat!
-(Game { boss: (GameUnit { health: 199, position: (GamePoint { x: 0.0, y: 0.0 }) }), score: 0, units: [(GameUnit { health: 10, position: (GamePoint { x: 3.5, y: 67.0 }) }),(GameUnit { health: 12, position: (GamePoint { x: 1.0, y: 61.0 }) }),(GameUnit { health: 5, position: (GamePoint { x: 0.0, y: 62.1 }) })] })
+  # battle
+  Take that!
+  *shink*
+  and that!
+  *shink*
+  and that!
+  *shink*
+  *srawr*
+  Retreat!
+  Retreat!
+  Retreat!
+  (Game { boss: (GameUnit { health: 199, position: (GamePoint { x: 0.0, y: 0.0 }) }), score: 0, units: [(GameUnit { health: 10, position: (GamePoint { x: 3.5, y: 67.0 }) }),(GameUnit { health: 12, position: (GamePoint { x: 1.0, y: 61.0 }) }),(GameUnit { health: 5, position: (GamePoint { x: 0.0, y: 62.1 }) })] })
 
 ```
 
