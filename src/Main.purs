@@ -13,33 +13,40 @@ import Game.Data (GamePoint(..))
 
 main :: forall e. Eff (console :: CONSOLE | e) Unit
 main = do
-  logDelimiter
-  log "get score "
+  chapter "Getter / Setter"
+  label "get score"
   logShow $ view (L._Game <<< L.score) initialState
-  logDelimiter
-  log "set score "
+  label "set score"
   logShow $ execState setScore initialState
-  log "update score "
+  label "update score"
   logShow $ execState updateScore initialState
-  logDelimiter
-  log "strike "
+  chapter "Composition"
+  label "strike"
   logShow $ execState strike initialState
-  logDelimiter
-  log "strike' "
+  label "strike'"
   logShow $ execState strike' initialState
-  logDelimiter
-  log "fireBreath "
+  chapter "Traversal"
+  label "fireBreath"
   logShow $ execState fireBreath initialState
-  logDelimiter
-  log "fireBreath' "
+  label "fireBreath'"
   logShow $ execState (fireBreath' $ GamePoint {x: 0.5, y:1.5} ) initialState
-  logDelimiter
-  log "retreat"
+  chapter "Zooming"
+  label "partyLoc"
+  logShow $ initialState ^.. partyLoc
+  label "retreat"
   logShow $ execStateT retreat initialState
-  log "retreat newstate"
+  label "retreat newstate"
   let newState = unwrap $ execStateT retreat initialState
   logShow $ newState ^.. partyLoc
 
-logDelimiter :: forall e. Eff (console :: CONSOLE | e) Unit
-logDelimiter =
-  log "------------------"
+label :: forall e. String -> Eff (console :: CONSOLE | e) Unit
+label text = do
+  log ""
+  log $ "# " <> text
+
+chapter :: forall e. String -> Eff (console :: CONSOLE | e) Unit
+chapter title = do
+  log ""
+  log "~~~~~~~~~~~~~~~~~~"
+  log title
+  log "~~~~~~~~~~~~~~~~~~"
