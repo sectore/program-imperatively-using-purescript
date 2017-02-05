@@ -5,8 +5,10 @@ import Game.Data.Lenses as L
 import Control.Monad.Eff (Eff)
 import Control.Monad.Eff.Console (CONSOLE, log, logShow)
 import Control.Monad.State (execState)
-import Data.Lens (view)
-import Game (fireBreath, fireBreath', initialState, setScore, strike, strike', updateScore)
+import Control.Monad.State.Trans (execStateT)
+import Data.Lens ((^..), view)
+import Data.Newtype (unwrap)
+import Game (fireBreath, fireBreath', initialState, partyLoc, retreat, setScore, strike, strike', updateScore)
 import Game.Data (GamePoint(..))
 
 main :: forall e. Eff (console :: CONSOLE | e) Unit
@@ -32,6 +34,11 @@ main = do
   log "fireBreath' "
   logShow $ execState (fireBreath' $ GamePoint {x: 0.5, y:1.5} ) initialState
   logDelimiter
+  log "retreat"
+  logShow $ execStateT retreat initialState
+  log "retreat newstate"
+  let newState = unwrap $ execStateT retreat initialState
+  logShow $ newState ^.. partyLoc
 
 logDelimiter :: forall e. Eff (console :: CONSOLE | e) Unit
 logDelimiter =

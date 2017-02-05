@@ -3,8 +3,11 @@ module Game where
 import Prelude
 import Game.Data.Lenses as L
 import Control.Monad.State (State, get, put)
+import Control.Monad.State.Trans (StateT)
+import Data.Identity (Identity)
 import Data.Lens (Lens', Traversal', filtered, over, set, view, (^.))
 import Data.Lens.Traversal (traversed)
+import Data.Lens.Zoom (zoom)
 import Data.Profunctor.Choice (class Choice)
 import Game.Data (Game(..), GameUnit(..), GamePoint(..))
 import Math (pow)
@@ -111,3 +114,16 @@ around center radius = filtered (\unit ->
         (u ^. L.position <<< L._GamePoint <<< L.x) - (p ^. L.x)
       diffY (GameUnit u) (GamePoint p) =
         (u ^. L.position <<< L._GamePoint <<< L.y) - (p ^. L.y)
+
+-- Zooming
+
+partyLoc :: Traversal' Game GamePoint
+partyLoc = L._Game <<< L.units <<< traversed <<< L._GameUnit <<< L.position
+
+retreat :: StateT Game Identity Unit
+retreat = do
+    zoom (partyLoc <<< L._GamePoint) $ do
+      point <- get
+      put $ over L.x (_ + 10.0) point
+      put $ over L.y (_ + 10.0) point
+    pure unit
