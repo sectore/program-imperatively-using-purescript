@@ -9,7 +9,9 @@ import Control.Monad.State.Trans (StateT, lift)
 import Data.Lens (Lens', Traversal', filtered, over, set, view, (^.))
 import Data.Lens.Traversal (traversed)
 import Data.Lens.Zoom (zoom)
+import Data.List.Lazy (replicateM)
 import Data.Profunctor.Choice (class Choice)
+import Data.Traversable (for)
 import Game.Data (Game(..), GameUnit(..), GamePoint(..))
 import Math (pow)
 
@@ -132,4 +134,29 @@ retreat = do
       point <- get
       put $ over L.x (_ + 10.0) point
       put $ over L.y (_ + 10.0) point
+    pure unit
+
+
+-- Combining commands
+
+battle :: forall e. StateT Game (Eff (console :: CONSOLE | e)) Unit
+battle = do
+    -- Charge!
+    for ["Take that!", "and that!", "and that!"] $
+        \taunt -> do
+            lift $ log taunt
+            strike
+    -- The dragon awakes!
+    fireBreath' $ GamePoint {x: 0.5, y:1.5}
+
+    replicateM 3 $ do
+        -- The better part of valor
+        retreat
+
+        -- Boss chases them
+        zoom (partyLoc <<< L._GamePoint) $ do
+          point <- get
+          put $ over L.x (_ + 10.0) point
+          put $ over L.y (_ + 10.0) point
+
     pure unit
