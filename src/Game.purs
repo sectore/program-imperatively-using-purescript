@@ -2,9 +2,10 @@ module Game where
 
 import Prelude
 import Game.Data.Lenses as L
+import Control.Monad.Eff (Eff)
+import Control.Monad.Eff.Console (CONSOLE, log)
 import Control.Monad.State (State, get, put)
-import Control.Monad.State.Trans (StateT)
-import Data.Identity (Identity)
+import Control.Monad.State.Trans (StateT, lift)
 import Data.Lens (Lens', Traversal', filtered, over, set, view, (^.))
 import Data.Lens.Traversal (traversed)
 import Data.Lens.Zoom (zoom)
@@ -71,14 +72,16 @@ updateScore = do
 
 
 -- update boss' health
-strike :: State Game Unit
+strike :: forall e. StateT Game (Eff (console :: CONSOLE | e)) Unit
 strike = do
+    lift $ log "*shink*"
     put <<< over (L._Game <<< L.boss <<< L._GameUnit <<< L.health) (_ + 33) =<< get
     pure unit
 
 -- update boss' health using bossHP
-strike' :: State Game Unit
+strike' :: forall e. StateT Game (Eff (console :: CONSOLE | e)) Unit
 strike' = do
+    lift $ log "*shink*"
     put <<< over bossHP (_ + 33) =<< get
     pure unit
 
@@ -91,8 +94,9 @@ bossHP =
 
 -- Traversal
 
-fireBreath :: State Game Unit
+fireBreath :: forall e. StateT Game (Eff (console :: CONSOLE | e)) Unit
 fireBreath = do
+    lift $ log "*srawr*"
     put <<< over partyHP (_ - 3) =<< get
     pure unit
 
@@ -100,9 +104,9 @@ partyHP :: Traversal' Game Int
 partyHP =
   L._Game <<< L.units <<< traversed <<< L._GameUnit <<< L.health
 
-
-fireBreath' :: GamePoint -> State Game Unit
+fireBreath' :: forall e. GamePoint -> StateT Game (Eff (console :: CONSOLE | e)) Unit
 fireBreath' target = do
+    lift $ log "*srawr*"
     put <<< over (L._Game <<< L.units <<< traversed <<< (around target 1.0) <<< L._GameUnit <<< L.health) (_ - 3) =<< get
     pure unit
 
@@ -120,8 +124,10 @@ around center radius = filtered (\unit ->
 partyLoc :: Traversal' Game GamePoint
 partyLoc = L._Game <<< L.units <<< traversed <<< L._GameUnit <<< L.position
 
-retreat :: StateT Game Identity Unit
+-- retreat :: StateT Game Identity Unit
+retreat :: forall e. StateT Game (Eff (console :: CONSOLE | e)) Unit
 retreat = do
+    lift $ log "Retreat!"
     zoom (partyLoc <<< L._GamePoint) $ do
       point <- get
       put $ over L.x (_ + 10.0) point

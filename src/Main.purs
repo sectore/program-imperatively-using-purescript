@@ -7,7 +7,6 @@ import Control.Monad.Eff.Console (CONSOLE, log, logShow)
 import Control.Monad.State (execState)
 import Control.Monad.State.Trans (execStateT)
 import Data.Lens ((^..), view)
-import Data.Newtype (unwrap)
 import Game (fireBreath, fireBreath', initialState, partyLoc, retreat, setScore, strike, strike', updateScore)
 import Game.Data (GamePoint(..))
 
@@ -22,22 +21,23 @@ main = do
   logShow $ execState updateScore initialState
   chapter "Composition"
   label "strike"
-  logShow $ execState strike initialState
+  logShow =<< execStateT strike initialState
   label "strike'"
-  logShow $ execState strike' initialState
+  logShow =<< execStateT strike' initialState
   chapter "Traversal"
   label "fireBreath"
-  logShow $ execState fireBreath initialState
+  logShow =<< execStateT fireBreath initialState
   label "fireBreath'"
-  logShow $ execState (fireBreath' $ GamePoint {x: 0.5, y:1.5} ) initialState
+  logShow =<< execStateT (fireBreath' $ GamePoint {x: 0.5, y:1.5}) initialState
   chapter "Zooming"
   label "partyLoc"
   logShow $ initialState ^.. partyLoc
   label "retreat"
-  logShow $ execStateT retreat initialState
+  logShow =<< execStateT retreat initialState
   label "retreat newstate"
-  let newState = unwrap $ execStateT retreat initialState
+  newState <- execStateT retreat initialState
   logShow $ newState ^.. partyLoc
+  execStateT retreat initialState >>= \st -> logShow $ st ^.. partyLoc
 
 label :: forall e. String -> Eff (console :: CONSOLE | e) Unit
 label text = do
