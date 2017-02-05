@@ -23,6 +23,7 @@ npm start
 ## Output
 
 ```bash
+
 ~~~~~~~~~~~~~~~~~~
 Getter / Setter
 ~~~~~~~~~~~~~~~~~~
@@ -93,7 +94,9 @@ Retreat!
 Retreat!
 Retreat!
 (Game { boss: (GameUnit { health: 199, position: (GamePoint { x: 0.0, y: 0.0 }) }), score: 0, units: [(GameUnit { health: 10, position: (GamePoint { x: 3.5, y: 67.0 }) }),(GameUnit { health: 12, position: (GamePoint { x: 1.0, y: 61.0 }) }),(GameUnit { health: 5, position: (GamePoint { x: 0.0, y: 62.1 }) })] })
+
 ```
+
 ## Generating lenses
 
 _Note:_ To run example you don't need to generate lenses again. They are already [there](./src/Lenses.purs).
