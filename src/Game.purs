@@ -130,10 +130,8 @@ partyLoc = L._Game <<< L.units <<< traversed <<< L._GameUnit <<< L.position
 retreat :: forall e. StateT Game (Eff (console :: CONSOLE | e)) Unit
 retreat = do
     lift $ log "Retreat!"
-    zoom (partyLoc <<< L._GamePoint) $ do
-      point <- get
-      put $ over L.x (_ + 10.0) point
-      put $ over L.y (_ + 10.0) point
+    zoom (partyLoc <<< L._GamePoint) $
+      put <<< over L.x (_ + 10.0) <<< over L.y (_ + 10.0) =<< get
     pure unit
 
 
@@ -154,9 +152,7 @@ battle = do
         retreat
 
         -- Boss chases them
-        zoom (partyLoc <<< L._GamePoint) $ do
-          point <- get
-          put $ over L.x (_ + 10.0) point
-          put $ over L.y (_ + 10.0) point
+        zoom (partyLoc <<< L._GamePoint) $
+          put <<< over L.x (_ + 10.0) <<< over L.y (_ + 10.0) =<< get
 
     pure unit

@@ -35,8 +35,6 @@ main = do
   label "retreat"
   logShow =<< execStateT retreat initialState
   label "retreat newstate"
-  newState <- execStateT retreat initialState
-  logShow $ newState ^.. partyLoc
   execStateT retreat initialState >>= \st -> logShow $ st ^.. partyLoc
   chapter "Combining"
   label "battle"
