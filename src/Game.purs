@@ -1,7 +1,7 @@
 module Game where
 
 import Prelude
-import Game.Data.Lenses as L
+import Game.Lenses as L
 import Control.Monad.Eff (Eff)
 import Control.Monad.Eff.Console (CONSOLE, log)
 import Control.Monad.State (State, get, put)
@@ -39,7 +39,7 @@ initialState = Game
     }
 
 
--- Intro (to warm up ;) ): set | view | over lenses
+-- Intro (just to warm up ;) ): set | view | over lenses
 
 
 -- get score
@@ -140,19 +140,18 @@ retreat = do
 battle :: forall e. StateT Game (Eff (console :: CONSOLE | e)) Unit
 battle = do
     -- Charge!
-    for ["Take that!", "and that!", "and that!"] $
-        \taunt -> do
-            lift $ log taunt
-            strike
+    _ <- for ["Take that!", "and that!", "and that!"] $
+            \taunt -> do
+                lift $ log taunt
+                strike
     -- The dragon awakes!
     fireBreath' $ GamePoint {x: 0.5, y:1.5}
 
-    replicateM 3 $ do
-        -- The better part of valor
-        retreat
-
-        -- Boss chases them
-        zoom (partyLoc <<< L._GamePoint) $
-          put <<< over L.x (_ + 10.0) <<< over L.y (_ + 10.0) =<< get
+    _ <- replicateM 3 $ do
+            -- The better part of valor
+            retreat
+            -- Boss chases them
+            zoom (partyLoc <<< L._GamePoint) $
+              put <<< over L.x (_ + 10.0) <<< over L.y (_ + 10.0) =<< get
 
     pure unit

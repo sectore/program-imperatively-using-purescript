@@ -1,19 +1,19 @@
-module Game.Data.Lenses where
+module Game.Lenses where
 
-import Prelude as Prelude
+import Data.Lens.Record (prop)
+import Data.Symbol (SProxy(..))
 import Data.Lens as Lens
-import Data.Either as Either
-import Game.Data
+import Game.Data(Game(..), GamePoint(..), GameUnit(..))
 
 
-score :: forall a b r. Lens.Lens { "score" :: a | r } { "score" :: b | r } a b
-score = Lens.lens _."score" (_ { "score" = _ })
+score :: forall a b r. Lens.Lens { score :: a | r } { score :: b | r } a b
+score = prop (SProxy :: SProxy "score")
 
-units :: forall a b r. Lens.Lens { "units" :: a | r } { "units" :: b | r } a b
-units = Lens.lens _."units" (_ { "units" = _ })
+units :: forall a b r. Lens.Lens { units :: a | r } { units :: b | r } a b
+units = prop (SProxy :: SProxy "units")
 
 boss :: forall a b r. Lens.Lens { "boss" :: a | r } { "boss" :: b | r } a b
-boss = Lens.lens _."boss" (_ { "boss" = _ })
+boss = prop (SProxy :: SProxy "boss")
 
 _Game :: Lens.Iso' Game
            { "score" :: Int
@@ -22,13 +22,13 @@ _Game :: Lens.Iso' Game
            }
 _Game = Lens.iso unwrap Game
   where
-    unwrap (Game x) = x
+    unwrap (Game g) = g
 
 health :: forall a b r. Lens.Lens { "health" :: a | r } { "health" :: b | r } a b
-health = Lens.lens _."health" (_ { "health" = _ })
+health = prop (SProxy :: SProxy "health")
 
 position :: forall a b r. Lens.Lens { "position" :: a | r } { "position" :: b | r } a b
-position = Lens.lens _."position" (_ { "position" = _ })
+position = prop (SProxy :: SProxy "position")
 
 _GameUnit :: Lens.Iso' GameUnit
                { "health" :: Int
@@ -36,13 +36,13 @@ _GameUnit :: Lens.Iso' GameUnit
                }
 _GameUnit = Lens.iso unwrap GameUnit
   where
-    unwrap (GameUnit x) = x
+    unwrap (GameUnit u) = u
 
 x :: forall a b r. Lens.Lens { "x" :: a | r } { "x" :: b | r } a b
-x = Lens.lens _."x" (_ { "x" = _ })
+x = prop (SProxy :: SProxy "x")
 
 y :: forall a b r. Lens.Lens { "y" :: a | r } { "y" :: b | r } a b
-y = Lens.lens _."y" (_ { "y" = _ })
+y = prop (SProxy :: SProxy "y")
 
 _GamePoint :: Lens.Iso' GamePoint
                 { "x" :: Number
@@ -50,4 +50,4 @@ _GamePoint :: Lens.Iso' GamePoint
                 }
 _GamePoint = Lens.iso unwrap GamePoint
   where
-    unwrap (GamePoint x) = x
+    unwrap (GamePoint p) = p
