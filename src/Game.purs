@@ -2,8 +2,8 @@ module Game where
 
 import Prelude
 import Game.Lenses as L
-import Control.Monad.Eff (Eff)
-import Control.Monad.Eff.Console (CONSOLE, log)
+import Effect (Effect)
+import Effect.Console (log)
 import Control.Monad.State (State, get, put)
 import Control.Monad.State.Trans (StateT, lift)
 import Data.Lens (Lens', Traversal', filtered, over, set, view, (^.))
@@ -74,14 +74,14 @@ updateScore = do
 
 
 -- update boss' health
-strike :: forall e. StateT Game (Eff (console :: CONSOLE | e)) Unit
+strike :: StateT Game Effect Unit
 strike = do
     lift $ log "*shink*"
     put <<< over (L._Game <<< L.boss <<< L._GameUnit <<< L.health) (_ + 33) =<< get
     pure unit
 
 -- update boss' health using bossHP
-strike' :: forall e. StateT Game (Eff (console :: CONSOLE | e)) Unit
+strike' :: StateT Game Effect Unit
 strike' = do
     lift $ log "*shink*"
     put <<< over bossHP (_ + 33) =<< get
@@ -96,7 +96,7 @@ bossHP =
 
 -- Traversal
 
-fireBreath :: forall e. StateT Game (Eff (console :: CONSOLE | e)) Unit
+fireBreath :: StateT Game Effect Unit
 fireBreath = do
     lift $ log "*srawr*"
     put <<< over partyHP (_ - 3) =<< get
@@ -106,7 +106,7 @@ partyHP :: Traversal' Game Int
 partyHP =
   L._Game <<< L.units <<< traversed <<< L._GameUnit <<< L.health
 
-fireBreath' :: forall e. GamePoint -> StateT Game (Eff (console :: CONSOLE | e)) Unit
+fireBreath' :: GamePoint -> StateT Game Effect Unit
 fireBreath' target = do
     lift $ log "*srawr*"
     put <<< over (L._Game <<< L.units <<< traversed <<< (around target 1.0) <<< L._GameUnit <<< L.health) (_ - 3) =<< get
@@ -126,8 +126,8 @@ around center radius = filtered (\unit ->
 partyLoc :: Traversal' Game GamePoint
 partyLoc = L._Game <<< L.units <<< traversed <<< L._GameUnit <<< L.position
 
--- retreat :: StateT Game Identity Unit
-retreat :: forall e. StateT Game (Eff (console :: CONSOLE | e)) Unit
+-- retreat :: StateT Game Effect Identity Unit
+retreat :: StateT Game Effect Unit
 retreat = do
     lift $ log "Retreat!"
     zoom (partyLoc <<< L._GamePoint) $
@@ -137,7 +137,7 @@ retreat = do
 
 -- Combining commands
 
-battle :: forall e. StateT Game (Eff (console :: CONSOLE | e)) Unit
+battle :: StateT Game Effect Unit
 battle = do
     -- Charge!
     _ <- for ["Take that!", "and that!", "and that!"] $

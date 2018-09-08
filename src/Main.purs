@@ -1,15 +1,15 @@
 module Main where
 
 import Prelude
-import Control.Monad.Eff (Eff)
-import Control.Monad.Eff.Console (CONSOLE, log, logShow)
+import Effect (Effect)
+import Effect.Console (log, logShow)
 import Control.Monad.State (execState)
 import Control.Monad.State.Trans (execStateT)
 import Data.Lens ((^..))
 import Game (battle, fireBreath, fireBreath', getScore, initialState, partyLoc, retreat, setScore, strike, strike', updateScore)
 import Game.Data (GamePoint(..))
 
-main :: forall e. Eff (console :: CONSOLE | e) Unit
+main :: Effect Unit
 main = do
   chapter "Getter / Setter"
   label "get score"
@@ -39,12 +39,12 @@ main = do
   label "battle"
   logShow =<< execStateT battle initialState
 
-label :: forall e. String -> Eff (console :: CONSOLE | e) Unit
+label :: String -> Effect Unit
 label text = do
   log ""
   log $ "# " <> text
 
-chapter :: forall e. String -> Eff (console :: CONSOLE | e) Unit
+chapter :: String -> Effect Unit
 chapter title = do
   log ""
   log "~~~~~~~~~~~~~~~~~~"
